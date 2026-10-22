@@ -1,57 +1,11 @@
-import { Footer, Guitar, Header } from './components';
+import { Cart, Footer, Guitar, Header } from './components';
 
 const App = () => {
   return (
     <>
       <Header />
 
-      <aside id="carrito">
-        <div>
-          <h2>Tu carrito</h2>
-          <button type="button" aria-label="Cerrar carrito">
-            ×
-          </button>
-        </div>
-
-        <div>
-          <p>El carrito está vacío</p>
-
-          <table>
-            <thead>
-              <tr>
-                <th>Imagen</th>
-                <th>Nombre</th>
-                <th>Precio</th>
-                <th>Cantidad</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <img src="/img/guitarra_02.jpg" alt="Guitarra SRV" />
-                </td>
-                <td>SRV</td>
-                <td>$299</td>
-                <td>
-                  <button type="button">-</button>1
-                  <button type="button">+</button>
-                </td>
-                <td>
-                  <button type="button">X</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div>
-          <p>
-            Total pagar: <span>$899</span>
-          </p>
-          <button type="button">Vaciar carrito</button>
-        </div>
-      </aside>
+      <Cart />
 
       <main>
         <h2 className="text-center text-4xl font-black">Nuestra Colección</h2>
