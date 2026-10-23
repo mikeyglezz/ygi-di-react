@@ -1,6 +1,13 @@
 import { Footer, Guitar, Header } from './components';
+import { useEffect, useState } from 'react';
+import { db } from './data/db';
 
 const App = () => {
+  const [guitars] = useState(db);
+
+  useEffect(() => {
+    document.title = `GuitarLA · ${guitars.length} guitarras`;
+  }, [guitars]);
   return (
     <>
       <Header />
@@ -9,9 +16,9 @@ const App = () => {
         <h2 className="text-center text-4xl font-black">Nuestra Colección</h2>
 
         <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          <Guitar />
-          <Guitar />
-          <Guitar />
+          {guitars.map((guitar) => (
+            <Guitar key={guitar.id} />
+          ))}
         </div>
       </main>
 
