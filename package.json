@@ -1,17 +1,17 @@
 {
-  "name": "ygi-di-guitarsla",
+  "name": "dam-di-react",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "vitest",
-    "storybook": "storybook dev -p 6006",
+    "storybook": "storybook dev -p 6006 --host 0.0.0.0",
     "build-storybook": "storybook build"
   },
   "dependencies": {
