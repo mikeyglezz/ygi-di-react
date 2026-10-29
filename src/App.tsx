@@ -17,7 +17,7 @@ const App = () => {
 
         <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {guitars.map((guitar) => (
-            <Guitar key={guitar.id} />
+            <Guitar key={guitar.id} guitar={guitar} />
           ))}
         </div>
       </main>
