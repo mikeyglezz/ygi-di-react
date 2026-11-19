@@ -5,12 +5,11 @@ import { Cart } from './Cart';
 
 const meta = {
   component: Cart,
+  args: {
+    onClose: fn(),
+  },
   parameters: {
     layout: 'fullscreen',
-  },
-  args: {
-    cart: [],
-    onClose: fn(),
   },
 } satisfies Meta<typeof Cart>;
 
@@ -20,7 +19,7 @@ type Story = StoryObj<typeof meta>;
 export const Empty: Story = {};
 
 export const WithItems: Story = {
-  args: {
+  parameters: {
     cart: [
       { ...db[0], quantity: 2 },
       { ...db[1], quantity: 1 },

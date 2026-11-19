@@ -1,24 +1,31 @@
-import type { CartItem } from '../../types';
+import { MAX_ITEMS, MIN_ITEMS } from '../../hooks';
+import { useCartContext } from '../../context';
 
 type CartProps = {
-  cart: CartItem[];
   onClose: () => void;
 };
 
-export const Cart = ({ cart, onClose }: CartProps) => {
+export const Cart = ({ onClose }: CartProps) => {
+  const {
+    cart,
+    increaseQuantity,
+    decreaseQuantity,
+    removeFromCart,
+    clearCart,
+  } = useCartContext();
   const isEmpty = cart.length === 0;
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
   return (
     <aside
       id="cart"
       aria-labelledby="cart-title"
       className="fixed inset-y-0 right-0 z-30 flex w-full max-w-md flex-col bg-white shadow-2xl"
     >
-      {' '}
       <div className="flex items-center justify-between border-b border-gray-200 px-6 py-4">
         <h2 id="cart-title" className="text-2xl font-black">
           Tu carrito
-        </h2>{' '}
+        </h2>
         <button
           type="button"
           className="size-8 rounded-full text-xl font-bold text-gray-500 transition hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
@@ -29,6 +36,7 @@ export const Cart = ({ cart, onClose }: CartProps) => {
           ×
         </button>
       </div>
+
       <div className="flex-1 overflow-y-auto px-6 py-4">
         {isEmpty ? (
           <p className="text-center text-gray-500">El carrito está vacío</p>
@@ -40,7 +48,9 @@ export const Cart = ({ cart, onClose }: CartProps) => {
                 <th className="py-2">Nombre</th>
                 <th className="py-2">Precio</th>
                 <th className="py-2">Cantidad</th>
-                <th></th>
+                <th className="py-2">
+                  <span className="sr-only">Acciones</span>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -59,16 +69,20 @@ export const Cart = ({ cart, onClose }: CartProps) => {
                     <div className="flex items-center gap-2">
                       <button
                         type="button"
-                        className="size-6 rounded bg-gray-900 text-white"
+                        className="size-6 rounded bg-gray-900 text-white transition hover:bg-gray-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-gray-400"
                         aria-label={`Quitar una unidad de ${item.name}`}
+                        disabled={item.quantity <= MIN_ITEMS}
+                        onClick={() => decreaseQuantity(item.id)}
                       >
                         -
                       </button>
                       {item.quantity}
                       <button
                         type="button"
-                        className="size-6 rounded bg-gray-900 text-white"
+                        className="size-6 rounded bg-gray-900 text-white transition hover:bg-gray-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-gray-400"
                         aria-label={`Añadir una unidad de ${item.name}`}
+                        disabled={item.quantity >= MAX_ITEMS}
+                        onClick={() => increaseQuantity(item.id)}
                       >
                         +
                       </button>
@@ -77,8 +91,9 @@ export const Cart = ({ cart, onClose }: CartProps) => {
                   <td>
                     <button
                       type="button"
-                      className="size-6 rounded-full bg-red-600 text-xs font-bold text-white"
+                      className="size-6 rounded-full bg-red-600 text-xs font-bold text-white transition hover:bg-red-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                       aria-label={`Eliminar ${item.name} del carrito`}
+                      onClick={() => removeFromCart(item.id)}
                     >
                       X
                     </button>
@@ -89,14 +104,16 @@ export const Cart = ({ cart, onClose }: CartProps) => {
           </table>
         )}
       </div>
+
       <div className="border-t border-gray-200 px-6 py-4">
         <p className="text-right text-lg">
           Total pagar: <span className="font-black">${total}</span>
         </p>
         <button
           type="button"
-          className="mt-3 w-full rounded bg-gray-900 p-3 font-bold text-white uppercase transition hover:bg-gray-700 disabled:cursor-not-allowed disabled:bg-gray-400"
+          className="mt-3 w-full rounded bg-gray-900 p-3 font-bold text-white uppercase transition hover:bg-gray-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:bg-gray-400"
           disabled={isEmpty}
+          onClick={clearCart}
         >
           Vaciar carrito
         </button>

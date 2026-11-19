@@ -8,7 +8,13 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default defineConfig([
-  globalIgnores(['dist', 'storybook-static']),
+  globalIgnores([
+    'dist',
+    'storybook-static',
+    'docs/api',
+    'playwright-report',
+    'test-results',
+  ]),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
@@ -21,6 +27,12 @@ export default defineConfig([
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
+    },
+    rules: {
+      '@typescript-eslint/no-unused-expressions': [
+        'error',
+        { allowShortCircuit: true },
+      ],
     },
   },
   ...storybook.configs['flat/recommended'],

@@ -1,5 +1,4 @@
-dist
-node_modules
-coverage
 storybook-static
-package-lock.json
+docs/api
+playwright-report
+test-results

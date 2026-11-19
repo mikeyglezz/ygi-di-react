@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
+
 import { db } from '../../data/db';
 import { Guitar } from './Guitar';
 
